@@ -1,0 +1,204 @@
+# 📈 TFT DemandIQ — Deep Learning Demand Forecasting System
+
+> **Temporal Fusion Transformer-based demand forecasting at enterprise scale**
+> Built at Infosys Limited | Aug 2021 – Jul 2023
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python) ![PyTorch](https://img.shields.io/badge/PyTorch-2.0-EE4C2C?logo=pytorch) ![Spark](https://img.shields.io/badge/Apache-Spark-E25A1C?logo=apache-spark) ![GCP](https://img.shields.io/badge/GCP-Vertex_AI-4285F4?logo=google-cloud) ![Airflow](https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apache-airflow)
+
+---
+
+## 📌 Overview
+
+TFT DemandIQ is a production **deep learning demand forecasting system** built for a major e-commerce client. It replaces a legacy ARIMA-based system with a **Temporal Fusion Transformer (TFT)** model that incorporates 150+ features — historical sales, promotions, weather, macroeconomic signals, and social trends — to deliver highly accurate, real-time demand forecasts across 1,200+ SKUs.
+
+**Key Results:**
+- 📉 **31%** reduction in forecast MAPE vs. ARIMA baseline
+- 💰 **$6.3M** annual inventory cost savings
+- 🔁 **4-hour** real-time forecast refresh cadence
+- 📦 Covers **1,200+ SKUs** across 3 distribution centers
+- ⚙️ **99.2% SLA** uptime in production
+- 🏪 Deployed for a **Top 10 Indian e-commerce platform**
+
+---
+
+## 🏗️ Architecture
+
+```
+┌──────────────────────────────────────────────────────────┐
+│                  Data Sources                             │
+│  Sales History | Promotions | Weather | Macro | Social   │
+└───────────────────────┬──────────────────────────────────┘
+                        │
+┌───────────────────────▼──────────────────────────────────┐
+│         Feature Engineering Pipeline (Spark Streaming)   │
+│   • 150+ features computed in real-time                  │
+│   • 4-hour refresh cadence via Airflow DAGs              │
+│   • Delta Lake for feature versioning                    │
+└───────────────────────┬──────────────────────────────────┘
+                        │
+         ┌──────────────┴──────────────┐
+         │                             │
+┌────────▼──────────┐       ┌──────────▼──────────┐
+│  TFT Model        │       │  LightGBM Ensemble   │
+│  (PyTorch)        │       │  (Gradient Boosting) │
+│                   │       │                      │
+│ • Temporal        │       │ • Fast inference     │
+│   attention       │       │ • Feature importance │
+│ • Multi-horizon   │       │ • Uncertainty bounds │
+│   forecasting     │       │                      │
+└────────┬──────────┘       └──────────┬──────────┘
+         │                             │
+         └──────────────┬──────────────┘
+                        │ Ensemble blend
+┌───────────────────────▼──────────────────────────────────┐
+│             GCP Vertex AI Serving                        │
+│     Online + Batch prediction endpoints                  │
+│     Grafana monitoring dashboard                         │
+└──────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Core Model** | Temporal Fusion Transformer (PyTorch + pytorch-forecasting) |
+| **Ensemble** | LightGBM, XGBoost |
+| **Feature Pipeline** | Apache Spark Structured Streaming, Delta Lake |
+| **Orchestration** | Apache Airflow |
+| **HPO** | Optuna (automated hyperparameter optimization) |
+| **Cloud / Serving** | GCP Vertex AI (training + serving) |
+| **Monitoring** | Grafana, Prometheus, Evidently AI |
+| **Languages** | Python 3.10, SQL, PySpark |
+
+---
+
+## 📁 Project Structure
+
+```
+tft-demandiq-forecasting/
+├── data/
+│   ├── feature_engineering.py      # 150+ feature computation
+│   ├── feature_store.py            # Delta Lake feature store
+│   ├── spark_streaming_pipeline.py # Real-time Spark Streaming
+│   └── data_validation.py          # Great Expectations checks
+├── models/
+│   ├── tft/
+│   │   ├── tft_model.py            # TFT architecture (pytorch-forecasting)
+│   │   ├── tft_trainer.py          # Training loop with early stopping
+│   │   ├── tft_config.yaml         # Model hyperparameters
+│   │   └── attention_visualizer.py # Temporal attention heatmaps
+│   ├── lightgbm/
+│   │   ├── lgbm_model.py           # LightGBM forecaster
+│   │   └── feature_importance.py   # SHAP feature importance
+│   └── ensemble/
+│       └── blender.py              # Weighted ensemble blending
+├── hpo/
+│   ├── optuna_study.py             # Automated HPO with Optuna
+│   └── hpo_config.yaml             # Search space configuration
+├── training/
+│   ├── train_pipeline.py           # End-to-end training pipeline
+│   ├── cross_validation.py         # Time-series cross-validation
+│   └── vertex_training_job.py      # GCP Vertex AI training job
+├── serving/
+│   ├── vertex_predictor.py         # Vertex AI online prediction
+│   ├── batch_predictor.py          # Batch forecast generation
+│   └── forecast_api.py             # FastAPI prediction endpoint
+├── monitoring/
+│   ├── drift_detector.py           # Evidently AI data drift
+│   ├── accuracy_monitor.py         # Rolling MAPE tracking
+│   ├── grafana_dashboard.json      # Grafana dashboard config
+│   └── alerts.yaml                 # Alerting thresholds
+├── airflow/
+│   └── forecast_dag.py             # 4-hour refresh Airflow DAG
+├── notebooks/
+│   ├── 01_eda.ipynb                # Exploratory data analysis
+│   ├── 02_feature_engineering.ipynb
+│   ├── 03_model_training.ipynb
+│   └── 04_results_analysis.ipynb   # Attention weights, SHAP plots
+├── tests/
+├── requirements.txt
+├── Dockerfile
+└── README.md
+```
+
+---
+
+## 🚀 Key Features
+
+### 1. Temporal Fusion Transformer
+State-of-the-art TFT architecture with **multi-head temporal self-attention** — learns which time steps and features matter most for each SKU, automatically.
+
+### 2. 150+ Engineered Features
+Rich feature set including lag features, rolling statistics, Fourier transforms for seasonality, external signals (weather, macro, social), and promotional calendar embeddings.
+
+### 3. Automated HPO with Optuna
+Hyperparameter search across architecture depth, learning rate, attention heads, and dropout — reduced tuning time from **3 weeks to 18 hours** using GCP Vertex AI parallel trials.
+
+### 4. Real-Time 4-Hour Refresh
+Apache Spark Structured Streaming ingests new transactions continuously; Airflow DAGs trigger model re-inference every 4 hours — keeping forecasts fresh with **zero downtime**.
+
+### 5. Full Observability
+Grafana dashboards with rolling MAPE, inventory coverage, and data drift metrics. Automated alerts fire when forecast accuracy degrades beyond threshold.
+
+---
+
+## 📊 Results
+
+| Metric | ARIMA Baseline | TFT DemandIQ | Improvement |
+|--------|---------------|-------------|-------------|
+| MAPE | 18.4% | 12.7% | **-31%** |
+| Forecast Horizon | 7 days | 30 days | **+4.3x** |
+| SKU Coverage | 400 SKUs | 1,200+ SKUs | **+200%** |
+| Refresh Cadence | Daily | Every 4 hours | **-83%** |
+| Annual Inventory Savings | Baseline | $6.3M saved | **$6.3M** |
+| Overstock Rate | 23% | 9% | **-61%** |
+
+---
+
+## 🛠️ Setup & Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/jaswanth-allam/tft-demandiq-forecasting.git
+cd tft-demandiq-forecasting
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure GCP credentials
+gcloud auth application-default login
+
+# Run feature pipeline locally (requires Spark)
+spark-submit data/spark_streaming_pipeline.py
+
+# Train the TFT model
+python training/train_pipeline.py --config models/tft/tft_config.yaml
+
+# Run HPO (optional, requires GCP Vertex AI)
+python hpo/optuna_study.py --n-trials 100
+
+# Start the prediction API
+uvicorn serving.forecast_api:app --reload --port 8000
+
+# View forecasts in notebook
+jupyter notebook notebooks/04_results_analysis.ipynb
+```
+
+---
+
+## 👤 Author
+
+**Jaswanth Allam** — AI/ML Engineer
+- 🌐 [jaswanth-allam.dev](https://jaswanth-allam.dev)
+- 💼 [linkedin.com/in/jaswanthallam2](https://linkedin.com/in/jaswanthallam2)
+- 📧 allam.jaswanth.y@gmail.com
+
+---
+
+*Built at Infosys Limited for a Top 10 Indian e-commerce client | Production system — code shared for portfolio purposes*
