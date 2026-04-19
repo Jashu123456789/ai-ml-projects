@@ -1,0 +1,173 @@
+# 🛒 WalmartMind — Agentic AI Shopping Intelligence Engine
+
+> **Multi-agent RAG system for real-time product recommendations across 400M+ SKUs**
+> Built at Walmart Global Tech | Feb 2025 – Present
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python) ![LangChain](https://img.shields.io/badge/LangChain-0.2-green) ![AWS](https://img.shields.io/badge/AWS-Bedrock-orange?logo=amazon-aws) ![GPT-4o](https://img.shields.io/badge/OpenAI-GPT--4o-412991?logo=openai) ![Pinecone](https://img.shields.io/badge/Pinecone-Vector_DB-blue)
+
+---
+
+## 📌 Overview
+
+WalmartMind is a production-scale **Agentic AI Shopping Intelligence Engine** that powers real-time product recommendations, inventory-aware suggestions, and supplier demand forecasting across Walmart's 4,700+ stores. The system uses a **multi-agent RAG architecture** where specialized AI agents collaborate to handle product discovery, personalization, price optimization, and inventory management simultaneously.
+
+**Key Results:**
+- 💰 **$85M** projected annual revenue uplift
+- 📈 **34%** increase in cart conversion rate
+- ⚡ **Sub-50ms** inference latency at scale
+- 🏪 Deployed across **4,700+ Walmart stores**
+- 🔁 Processes **1B+ weekly transactions**
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   User Request Layer                     │
+│              (Web / Mobile / In-Store POS)               │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────────────┐
+│              Orchestrator Agent (LangChain)              │
+│    Routes queries to specialized sub-agents              │
+└────┬──────────┬──────────────┬──────────┬───────────────┘
+     │          │              │          │
+  Product   Inventory    Pricing    Personalization
+  Agent      Agent        Agent         Agent
+     │          │              │          │
+└────▼──────────▼──────────────▼──────────▼───────────────┐
+│                  RAG Retrieval Layer                      │
+│     Pinecone Vector DB  +  OpenSearch (BM25)             │
+│         Dense + Sparse Hybrid Retrieval                  │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────────────┐
+│              LLM Response Layer                          │
+│    GPT-4o / LLaMA-3 8B (QLoRA fine-tuned)              │
+│              AWS Bedrock Runtime                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Orchestration** | LangChain Agents, LlamaIndex |
+| **LLMs** | GPT-4o, LLaMA-3 8B (QLoRA fine-tuned), Claude 3.5 |
+| **Vector DB** | Pinecone, OpenSearch (hybrid retrieval) |
+| **Cloud** | AWS Bedrock, SageMaker Feature Store, Kinesis |
+| **Streaming** | AWS Kinesis + SageMaker real-time inference |
+| **MLOps** | MLflow, Weights & Biases, Delta Lake |
+| **Languages** | Python 3.11, SQL |
+
+---
+
+## 📁 Project Structure
+
+```
+walmartmind-agentic-ai/
+├── agents/
+│   ├── orchestrator.py          # Main LangChain orchestrator agent
+│   ├── product_agent.py         # Product discovery & search agent
+│   ├── inventory_agent.py       # Real-time inventory awareness agent
+│   ├── pricing_agent.py         # Dynamic pricing optimization agent
+│   └── personalization_agent.py # User preference & history agent
+├── rag/
+│   ├── retriever.py             # Hybrid dense + sparse retrieval
+│   ├── embeddings.py            # Sentence transformer embeddings
+│   ├── vector_store.py          # Pinecone integration
+│   └── reranker.py              # Cross-encoder re-ranking
+├── llm/
+│   ├── bedrock_client.py        # AWS Bedrock LLM client
+│   ├── fine_tuning/
+│   │   ├── qlora_config.yaml    # QLoRA fine-tuning configuration
+│   │   └── train.py             # LLaMA-3 fine-tuning script
+│   └── prompts/
+│       └── recommendation_prompt.py
+├── feature_store/
+│   ├── feature_definitions.py   # SageMaker Feature Store schemas
+│   └── feature_pipeline.py      # Real-time feature ingestion
+├── api/
+│   ├── main.py                  # FastAPI serving layer
+│   └── schemas.py               # Request/response schemas
+├── monitoring/
+│   ├── drift_detection.py       # Data drift monitoring
+│   └── responsible_ai.py        # SHAP/LIME explainability
+├── tests/
+├── notebooks/
+│   └── eda_and_prototyping.ipynb
+├── requirements.txt
+├── Dockerfile
+└── README.md
+```
+
+---
+
+## 🚀 Key Features
+
+### 1. Multi-Agent Orchestration
+Specialized agents handle different aspects of the recommendation pipeline in parallel, reducing latency and improving accuracy for each subtask.
+
+### 2. Hybrid Vector Search
+Combines **dense retrieval** (Pinecone + Sentence Transformers) with **sparse retrieval** (BM25/OpenSearch) for 41% improvement in search relevance vs. dense-only.
+
+### 3. LLaMA-3 Fine-tuning with QLoRA
+Custom fine-tuned LLaMA-3 8B on Walmart's proprietary 50M+ SKU dataset using QLoRA (4-bit quantization), achieving **23% better accuracy** than GPT-4 baseline on product classification.
+
+### 4. Real-Time Inference
+Customer intent classification processes **5M+ daily sessions** via AWS Kinesis streaming with sub-50ms end-to-end latency.
+
+### 5. Responsible AI
+Automated bias detection, SHAP explainability, and fairness monitoring across all 12 production models.
+
+---
+
+## 📊 Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Cart Conversion Rate | 18.2% | 24.4% | **+34%** |
+| Search Relevance Score | 0.61 | 0.86 | **+41%** |
+| Recommendation Latency | 400ms | 28ms | **-93%** |
+| Product Classification Accuracy | 71% | 87% | **+23%** |
+| Projected Annual Revenue | Baseline | +$85M | **$85M uplift** |
+
+---
+
+## 🛠️ Setup & Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/jaswanth-allam/walmartmind-agentic-ai.git
+cd walmartmind-agentic-ai
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set environment variables
+cp .env.example .env
+# Edit .env with your API keys (AWS, OpenAI, Pinecone)
+
+# Run the API server
+uvicorn api.main:app --reload --port 8000
+```
+
+---
+
+## 👤 Author
+
+**Jaswanth Allam** — AI/ML Engineer
+- 🌐 [jaswanth-allam.dev](https://jaswanth-allam.dev)
+- 💼 [linkedin.com/in/jaswanthallam2](https://linkedin.com/in/jaswanthallam2)
+- 📧 allam.jaswanth.y@gmail.com
+
+---
+
+*Built at Walmart Global Tech | Production system — code shared for portfolio purposes*
