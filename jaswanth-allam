@@ -1,0 +1,95 @@
+# Hi, I'm Jaswanth Allam 👋
+
+### AI/ML Engineer · Generative AI · LLMs · MLOps · Cloud AI
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-jaswanthallam2-0077B5?logo=linkedin)](https://linkedin.com/in/jaswanthallam2)
+[![Portfolio](https://img.shields.io/badge/Portfolio-jaswanth--allam.dev-1F4E79?logo=google-chrome)](https://jaswanth-allam.dev)
+[![Email](https://img.shields.io/badge/Email-allam.jaswanth.y@gmail.com-D14836?logo=gmail)](mailto:allam.jaswanth.y@gmail.com)
+![Profile Views](https://komarev.com/ghpvc/?username=jaswanth-allam&color=2E75B6)
+
+---
+
+## 🚀 About Me
+
+I'm an **AI/ML Engineer with 4 years of experience** building production-grade machine learning and Generative AI systems at **Walmart Global Tech** and **Microsoft**. I specialize in LLMs, RAG pipelines, MLOps, and cloud-native AI at massive scale.
+
+- 🔭 Currently building **LLM-powered Retail AI** at Walmart Global Tech (GPT-4o, LLaMA-3, AWS Bedrock)
+- 🌱 Working with **Agentic AI, Multi-Agent Systems, QLoRA fine-tuning**
+- 💬 Ask me about **LLMs, RAG, MLOps, PyTorch, AWS SageMaker**
+- 📫 Reach me at **allam.jaswanth.y@gmail.com**
+- 🌐 Portfolio: **[jaswanth-allam.dev](https://jaswanth-allam.dev)**
+
+---
+
+## 🏢 Experience
+
+| Company | Role | Period |
+|---------|------|--------|
+| 🛒 **Walmart Global Tech** | AI/ML Engineer – Generative AI | Feb 2025 – Present |
+| 💻 **Microsoft Corporation** | Machine Learning Engineer – Azure AI | Jan 2024 – Jan 2025 |
+| 🏗️ **Infosys Limited** | Data Scientist / ML Engineer | Aug 2021 – Jul 2023 |
+
+---
+
+## 🔥 Featured Projects
+
+### 🛒 [WalmartMind — Agentic AI Shopping Engine](https://github.com/jaswanth-allam/walmartmind-agentic-ai)
+Multi-agent RAG system for real-time product recommendations across 400M+ SKUs
+`LangChain` `GPT-4o` `LLaMA-3` `AWS Bedrock` `Pinecone`
+> 💰 $85M revenue uplift · 34% cart conversion increase · Sub-50ms latency
+
+### 🛡️ [AzureShield — LLM Safety Platform](https://github.com/jaswanth-allam/azureshield-llm-safety)
+Automated red-teaming pipeline generating 10K+ adversarial scenarios per release
+`PyRIT` `PromptFlow` `Azure OpenAI` `FastAPI`
+> ⚡ 94% faster detection · 98.7% regressions caught pre-production
+
+### 📄 [IntelliKYC — Document Intelligence](https://github.com/jaswanth-allam/intellikyc-document-intelligence)
+End-to-end IDP pipeline: OCR → NER → fraud scoring at 200K+ docs/month
+`BERT` `Tesseract` `AWS Lambda` `Airflow` `XGBoost`
+> 🎯 99.1% accuracy · 78% manual review reduction · $0.002/doc
+
+### 📈 [TFT DemandIQ — Demand Forecasting](https://github.com/jaswanth-allam/tft-demandiq-forecasting)
+Temporal Fusion Transformer forecasting system across 1,200+ SKUs
+`PyTorch` `TFT` `LightGBM` `Apache Spark` `GCP Vertex AI`
+> 📉 31% MAPE reduction · $6.3M inventory savings
+
+---
+
+## 🛠️ Tech Stack
+
+**Languages**
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-4479A1?logo=postgresql&logoColor=white)
+![Scala](https://img.shields.io/badge/Scala-DC322F?logo=scala&logoColor=white)
+
+**ML / DL**
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?logo=tensorflow&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?logo=huggingface&logoColor=black)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?logo=scikit-learn&logoColor=white)
+
+**GenAI & LLMs**
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?logo=langchain&logoColor=white)
+
+**Cloud & MLOps**
+![AWS](https://img.shields.io/badge/AWS-232F3E?logo=amazon-aws&logoColor=white)
+![GCP](https://img.shields.io/badge/GCP-4285F4?logo=google-cloud&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?logo=microsoft-azure&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-0194E2?logo=mlflow&logoColor=white)
+
+---
+
+## 🎓 Certifications
+
+- 🟠 **AWS Certified Machine Learning – Specialty** (MLS-C01)
+- 🔵 **Google Professional Machine Learning Engineer**
+- 🟣 **Microsoft Certified: Azure AI Engineer Associate** (AI-102)
+- 🟢 **Deep Learning Specialization** – deeplearning.ai (5 courses)
+- 🔴 **Databricks Certified Associate Developer** for Apache Spark 3.0
+
+---
+
+*📍 United States · Open to opportunities in AI/ML Engineering*
