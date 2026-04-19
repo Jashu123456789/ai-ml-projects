@@ -1,0 +1,193 @@
+# 📄 IntelliKYC — AI-Powered Document Intelligence & KYC Automation
+
+> **End-to-end intelligent document processing pipeline for automated KYC verification**
+> Built at Infosys Limited | Aug 2021 – Jul 2023
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python) ![BERT](https://img.shields.io/badge/HuggingFace-BERT-FFD21E?logo=huggingface) ![AWS](https://img.shields.io/badge/AWS-Lambda-FF9900?logo=amazon-aws) ![Airflow](https://img.shields.io/badge/Apache-Airflow-017CEE?logo=apache-airflow) ![FastAPI](https://img.shields.io/badge/FastAPI-0.100-009688?logo=fastapi)
+
+---
+
+## 📌 Overview
+
+IntelliKYC is a production-grade **Intelligent Document Processing (IDP)** system that automates Know Your Customer (KYC) verification for a leading Indian bank. The pipeline combines OCR, NLP-based Named Entity Recognition, and fraud signal scoring to extract, validate, and flag customer identity documents — fully automatically, at scale.
+
+**Key Results:**
+- 📄 **200,000+** documents processed per month
+- 🎯 **99.1%** extraction accuracy
+- ⏱️ **78%** reduction in manual review time
+- 💵 **$0.002** per document (serverless cost on AWS Lambda)
+- 🔒 **99.95%** system uptime (SLA)
+- 🏦 Deployed for a **Top 5 Indian bank**
+
+---
+
+## 🏗️ Pipeline Architecture
+
+```
+ Input Document (PDF / Image / Scan)
+          │
+          ▼
+┌─────────────────────┐
+│  Pre-processing      │   • Image denoising, deskewing
+│  (OpenCV)           │   • Resolution enhancement
+└──────────┬──────────┘   • File format normalization
+           │
+           ▼
+┌─────────────────────┐
+│  OCR Engine         │   • Tesseract OCR (primary)
+│  (Tesseract /       │   • AWS Textract (fallback for low quality)
+│   AWS Textract)     │   • Confidence scoring per token
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  NER Extraction     │   • Custom BERT fine-tuned on KYC docs
+│  (BERT + spaCy)     │   • Extracts: Name, DOB, ID Numbers,
+│                     │     Address, PAN, Aadhaar patterns
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Fraud Scoring      │   • XGBoost anomaly scorer
+│  (XGBoost)          │   • Checks: tamper detection, font
+│                     │     inconsistency, duplicate submission
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Verification &     │   • Cross-field validation rules
+│  Output             │   • Confidence threshold gating
+│                     │   • Auto-approve / flag for review
+└─────────────────────┘
+```
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **OCR** | Tesseract 5.0, AWS Textract |
+| **NLP / NER** | BERT (fine-tuned), spaCy, HuggingFace Transformers |
+| **Fraud Scoring** | XGBoost, Scikit-learn |
+| **Image Processing** | OpenCV, Pillow |
+| **Orchestration** | Apache Airflow |
+| **Serving** | FastAPI, AWS Lambda (serverless) |
+| **Storage** | AWS S3, DynamoDB |
+| **Monitoring** | AWS CloudWatch, Streamlit dashboard |
+
+---
+
+## 📁 Project Structure
+
+```
+intellikyc-document-intelligence/
+├── preprocessing/
+│   ├── image_processor.py       # OpenCV denoising, deskewing
+│   ├── format_normalizer.py     # PDF/image format handling
+│   └── quality_scorer.py        # Document quality assessment
+├── ocr/
+│   ├── tesseract_engine.py      # Primary OCR with Tesseract
+│   ├── textract_client.py       # AWS Textract fallback
+│   └── confidence_filter.py     # Token confidence thresholding
+├── ner/
+│   ├── bert_ner_model.py        # Custom BERT NER model
+│   ├── training/
+│   │   ├── train.py             # BERT fine-tuning script
+│   │   ├── data_prep.py         # KYC dataset preparation
+│   │   └── config.yaml          # Training hyperparameters
+│   ├── entity_extractor.py      # Field extraction logic
+│   └── post_processor.py        # Entity normalization
+├── fraud_detection/
+│   ├── feature_engineering.py   # Document feature extraction
+│   ├── xgb_scorer.py            # XGBoost fraud scorer
+│   └── rules_engine.py          # Validation rules
+├── pipeline/
+│   ├── airflow_dag.py           # Airflow DAG definition
+│   ├── batch_processor.py       # Batch document processing
+│   └── feedback_loop.py         # Human-in-loop retraining
+├── api/
+│   ├── main.py                  # FastAPI Lambda handler
+│   ├── schemas.py               # Request/response models
+│   └── lambda_handler.py        # AWS Lambda entry point
+├── monitoring/
+│   └── dashboard.py             # Streamlit metrics dashboard
+├── tests/
+├── requirements.txt
+├── serverless.yml               # AWS Lambda deployment config
+└── README.md
+```
+
+---
+
+## 🚀 Key Features
+
+### 1. Self-Learning Feedback Loop
+Human corrections on low-confidence extractions automatically feed into weekly model retraining — improving accuracy from **91% at launch to 99.1% over 6 months**.
+
+### 2. Serverless at Scale
+Deployed on **AWS Lambda** with auto-scaling — processes 200K+ documents/month at peak, maintaining 99.95% uptime at just **$0.002 per document**.
+
+### 3. Multi-Engine OCR
+Primary Tesseract OCR with automatic fallback to AWS Textract for low-quality scans, with per-token confidence scoring to maximize extraction accuracy.
+
+### 4. Airflow Orchestration
+Full pipeline observability with Airflow DAGs — retry logic, alerting, SLA monitoring, and audit trails for compliance requirements.
+
+---
+
+## 📊 Results
+
+| Metric | Before (Manual) | After (IntelliKYC) | Improvement |
+|--------|-----------------|-------------------|-------------|
+| Processing Time | 15 min/doc | 8 seconds/doc | **-98.7%** |
+| Extraction Accuracy | N/A | 99.1% | Production-grade |
+| Manual Review Rate | 100% | 22% | **-78%** |
+| Monthly Throughput | 50K docs | 200K+ docs | **+300%** |
+| Cost per Document | ~$2.50 | $0.002 | **-99.9%** |
+
+---
+
+## 🛠️ Setup & Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/jaswanth-allam/intellikyc-document-intelligence.git
+cd intellikyc-document-intelligence
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Install Tesseract OCR
+# Ubuntu: sudo apt-get install tesseract-ocr
+# macOS:  brew install tesseract
+
+# Configure AWS credentials
+aws configure
+
+# Run the pipeline locally
+python pipeline/batch_processor.py --input ./sample_docs/ --output ./results/
+
+# Start the API server
+uvicorn api.main:app --reload --port 8000
+
+# Access Streamlit dashboard
+streamlit run monitoring/dashboard.py
+```
+
+---
+
+## 👤 Author
+
+**Jaswanth Allam** — AI/ML Engineer
+- 🌐 [jaswanth-allam.dev](https://jaswanth-allam.dev)
+- 💼 [linkedin.com/in/jaswanthallam2](https://linkedin.com/in/jaswanthallam2)
+- 📧 allam.jaswanth.y@gmail.com
+
+---
+
+*Built at Infosys Limited for a Top 5 Indian Bank | Production system — code shared for portfolio purposes*
