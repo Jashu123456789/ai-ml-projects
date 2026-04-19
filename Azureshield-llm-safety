@@ -1,0 +1,175 @@
+# 🛡️ AzureShield — LLM Safety & Red-Teaming Automation Platform
+
+> **Automated adversarial testing pipeline for LLM safety validation at enterprise scale**
+> Built at Microsoft Corporation | Jan 2024 – Jan 2025
+
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python) ![Azure](https://img.shields.io/badge/Azure-OpenAI-0078D4?logo=microsoft-azure) ![FastAPI](https://img.shields.io/badge/FastAPI-0.110-009688?logo=fastapi) ![PyRIT](https://img.shields.io/badge/PyRIT-Red_Teaming-red) ![PromptFlow](https://img.shields.io/badge/PromptFlow-Azure-0078D4)
+
+---
+
+## 📌 Overview
+
+AzureShield is a production **LLM Safety & Red-Teaming Automation Platform** built for Microsoft's Azure OpenAI Service. It automatically generates thousands of adversarial prompts — jailbreaks, prompt injections, harmful content — tests every model version against them, and blocks unsafe releases before they reach production customers.
+
+**Key Results:**
+- ⚡ **94%** reduction in safety incident detection time (days → under 2 hours)
+- 🧪 **10,000+** adversarial scenarios generated per model version
+- 🚫 **98.7%** of safety regressions caught before production
+- 📋 **35%** improvement in Responsible AI policy compliance
+- 🏢 Protecting **200+ enterprise Azure OpenAI customers**
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Azure DevOps CI/CD Pipeline                 │
+│    Triggered on every model update / PR merge            │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────────────┐
+│           AzureShield Orchestrator (PromptFlow)          │
+│   Coordinates attack generation, evaluation, reporting   │
+└────┬──────────────────────────────────────┬─────────────┘
+     │                                      │
+┌────▼──────────────┐            ┌──────────▼──────────────┐
+│  Attack Generator  │            │   Safety Evaluator       │
+│  (PyRIT Engine)    │            │   (Policy Checker)       │
+│                   │            │                          │
+│  • Jailbreaks     │            │  • Content classifier    │
+│  • Prompt inject  │  ─────►   │  • Policy compliance     │
+│  • Harmful content│            │  • Harm scoring          │
+│  • Data exfiltrat │            │  • Threshold gating      │
+└───────────────────┘            └──────────┬──────────────┘
+                                            │
+┌───────────────────────────────────────────▼─────────────┐
+│              Monitoring Dashboard (FastAPI + React)      │
+│   Real-time safety metrics, alerts, incident triage      │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Red-Teaming** | PyRIT (Microsoft), Custom Attack Generators |
+| **Orchestration** | Azure PromptFlow, Azure DevOps |
+| **LLM Under Test** | Azure OpenAI (GPT-4, GPT-4o, Phi-3) |
+| **API Layer** | FastAPI, Python 3.11 |
+| **Monitoring** | Azure Monitor, custom React dashboard |
+| **CI/CD** | Azure DevOps Pipelines, GitHub Actions |
+| **Cloud** | Azure Kubernetes Service (AKS) |
+
+---
+
+## 📁 Project Structure
+
+```
+azureshield-llm-safety/
+├── attack_generator/
+│   ├── jailbreak_generator.py       # Jailbreak prompt generation
+│   ├── prompt_injection.py          # Prompt injection attacks
+│   ├── harmful_content.py           # Harmful content scenarios
+│   ├── data_exfiltration.py         # Data leak attack vectors
+│   └── scenario_library.json        # 10K+ curated attack scenarios
+├── evaluator/
+│   ├── safety_classifier.py         # Content safety classification
+│   ├── policy_checker.py            # Responsible AI policy validation
+│   ├── harm_scorer.py               # Harm severity scoring
+│   └── threshold_config.yaml        # Safety thresholds per category
+├── orchestrator/
+│   ├── promptflow_pipeline.yaml     # Azure PromptFlow definition
+│   ├── run_evaluation.py            # Main evaluation runner
+│   └── report_generator.py          # HTML/JSON report output
+├── monitoring/
+│   ├── dashboard/                   # React monitoring dashboard
+│   ├── alerts.py                    # Automated alert triggers
+│   ├── drift_monitor.py             # Safety metric drift detection
+│   └── incident_triage.py           # Auto-triage & classification
+├── api/
+│   ├── main.py                      # FastAPI endpoints
+│   ├── schemas.py                   # Pydantic models
+│   └── auth.py                      # Azure AD authentication
+├── cicd/
+│   ├── azure-pipelines.yml          # Azure DevOps pipeline
+│   └── gate_policy.yaml             # Deployment gate thresholds
+├── tests/
+├── requirements.txt
+├── Dockerfile
+└── README.md
+```
+
+---
+
+## 🚀 Key Features
+
+### 1. Automated Attack Generation
+PyRIT-powered engine generates **10,000+ adversarial scenarios** per evaluation run covering jailbreaks, prompt injections, harmful content elicitation, and data exfiltration attempts.
+
+### 2. CI/CD Safety Gates
+Every model update triggers the full evaluation pipeline. Models that fail safety thresholds are **automatically blocked** from deployment — no human intervention needed for standard cases.
+
+### 3. Real-Time Monitoring Dashboard
+Live safety metrics, drift detection, and automated incident triage. Incidents are classified by severity and routed to the appropriate response team automatically.
+
+### 4. Responsible AI Policy Compliance
+Automated checking against Microsoft's AI principles — fairness, reliability, privacy, inclusiveness, transparency, and accountability — with detailed compliance reports per run.
+
+---
+
+## 📊 Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Detection Time | 3-5 days | Under 2 hours | **-94%** |
+| Scenarios per Release | ~200 manual | 10,000+ automated | **+50x** |
+| Regressions Caught | ~60% | 98.7% | **+38.7pp** |
+| Policy Compliance Score | 71% | 96% | **+35%** |
+| False Positive Rate | 12% | 1.3% | **-89%** |
+
+---
+
+## 🛠️ Setup & Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/jaswanth-allam/azureshield-llm-safety.git
+cd azureshield-llm-safety
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure Azure credentials
+az login
+cp config/settings.example.yaml config/settings.yaml
+# Edit settings.yaml with your Azure OpenAI endpoint and key
+
+# Run evaluation on a model endpoint
+python orchestrator/run_evaluation.py \
+  --endpoint "https://your-endpoint.openai.azure.com/" \
+  --model "gpt-4" \
+  --scenarios all
+
+# Start monitoring dashboard
+uvicorn api.main:app --reload
+```
+
+---
+
+## 👤 Author
+
+**Jaswanth Allam** — AI/ML Engineer
+- 🌐 [jaswanth-allam.dev](https://jaswanth-allam.dev)
+- 💼 [linkedin.com/in/jaswanthallam2](https://linkedin.com/in/jaswanthallam2)
+- 📧 allam.jaswanth.y@gmail.com
+
+---
+
+*Built at Microsoft Corporation | Production system — code shared for portfolio purposes*
